@@ -9,6 +9,8 @@ model trained to classify 4 classes:
 - Carrot
 - Banana
 
+[live demo](https://doodle-classifier-jonatane.herokuapp.com/)
+
 # The model:
 
 CNN model using tensorflow:

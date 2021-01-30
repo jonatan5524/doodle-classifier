@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="/static/sketch.js"></script>
+    <style>
+      body {
+        text-align: center;
+      }
+      canvas {
+        border: 1px solid #000000;
+      }
+      p {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Doodle Classifier</h1>
+      <h2>The Classifier know to classify:</h2>
+      <h2>
+        <p id="Apple">Apple</p>
+        ,
+        <p id="Carrot">Carrot</p>
+        ,
+        <p id="Banana">Banana</p>
+        ,
+        <p id="Pizza">Pizza</p>
+      </h2>
+      <h3>Try to draw one of those objects and the classifier try to guess</h3>
+      <h3>Press space to clean</h3>
+    </main>
+  </body>
+</html>

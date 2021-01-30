@@ -7,15 +7,16 @@ import os
 
 class Model:
 
-  def __init__(self, class_num = 4, input_shape = (28, 28, 1)):
+  def __init__(self, class_num = 4, input_shape = (28, 28, 1), trainable = False):
     self.checkpoint_path = "training/cp-{epoch:04d}.ckpt"
     self.checkpoint_dir = os.path.dirname(self.checkpoint_path)
 
     self.model = self.build_model(class_num, input_shape)
 
-    training_dataset, test_dataset = load_data()
-    self.training_labels, self.training_images = Model.encode_dataset(training_dataset)
-    self.test_labels, self.test_images = Model.encode_dataset(test_dataset)
+    if trainable:
+      training_dataset, test_dataset = load_data()
+      self.training_labels, self.training_images = Model.encode_dataset(training_dataset)
+      self.test_labels, self.test_images = Model.encode_dataset(test_dataset)
 
     self.batch_size = 25
     self.epochs = 100

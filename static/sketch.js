@@ -1,7 +1,6 @@
 let points;
 let loading;
 let start;
-let URL = "http://localhost:5000";
 let sendInterval;
 let lastPredict;
 
@@ -14,7 +13,7 @@ function setup() {
 
   start = false;
   loading = true;
-  fetch(URL + "/load")
+  fetch("/load")
     .then((res) => {
       if (!res.ok) {
         throw Error(res.text);
@@ -74,7 +73,7 @@ function prepareImage() {
 function sendPredict() {
   const data = Array.from(prepareImage().dataSync());
 
-  fetch(URL + "/capture", {
+  fetch("/capture", {
     method: "POST",
     headers: {
       "Content-Type": "image/png",

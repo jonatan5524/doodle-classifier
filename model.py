@@ -149,9 +149,3 @@ class Model:
     plt.imshow(image.astype("uint8"))
     plt.axis("off")
     plt.show()
-
-if __name__ == "__main__":
-  model = Model()
-  model.print()
-  history = model.train()
-  model.progress_graph(history)

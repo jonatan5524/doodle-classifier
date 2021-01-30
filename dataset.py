@@ -34,6 +34,3 @@ def load_data(data_items = 1000, training_data_split = 0.8):
         test_data += dataset[int(data_items * training_data_split) : data_items]
 
     return training_data, test_data
-
-if __name__ == "__main__":
-    load_data()

@@ -12,11 +12,21 @@ model = Model()
 
 @app.route('/')
 def index():
+    """ Index route of the server
+
+    Returns:
+        Text: The index.html file
+    """
     return render_template('index.html')
 
 @app.route('/load')
 @cross_origin()
 def load():
+    """ Loads the model from the last checkpoint
+
+    Returns:
+        Str: Loaded approval
+    """
     model.load()
 
     return "loaded"
@@ -24,6 +34,11 @@ def load():
 @app.route('/capture', methods=['POST'])
 @cross_origin()
 def capture():
+    """ Predict the current drawing of the user
+
+    Returns:
+        Str: The model prediction
+    """
     data = request.stream.read()
     data = data.decode("utf-8").split(',')
     

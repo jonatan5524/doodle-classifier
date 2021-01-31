@@ -58,10 +58,7 @@ function prepareImage() {
   const imageData = ctx.getImageData(0, 0, 400, 400);
   const tfImage = tf.browser.fromPixels(imageData, 1);
 
-  //Resize to 28X28
   let tfResizedImage = tf.image.resizeBilinear(tfImage, [28, 28]);
-  //Since white is 255 black is 0 so need to revert the values
-  //so that white is 0 and black is 255
   tfResizedImage = tf.cast(tfResizedImage, "float32");
   tfResizedImage = tf
     .abs(tfResizedImage.sub(tf.scalar(255)))

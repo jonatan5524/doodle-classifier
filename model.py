@@ -8,6 +8,13 @@ import os
 class Model:
 
   def __init__(self, class_num = 4, input_shape = (28, 28, 1), trainable = False):
+    """ Build the model
+
+    Args:
+        class_num (int, optional): Number of classes to classify. Defaults to 4.
+        input_shape (tuple, optional): Input shape of the model, the shape of the image. Defaults to (28, 28, 1).
+        trainable (bool, optional): If the model is on training mode, the dataset will analyze. Defaults to False.
+    """
     self.checkpoint_path = "training/cp-{epoch:04d}.ckpt"
     self.checkpoint_dir = os.path.dirname(self.checkpoint_path)
 
@@ -22,10 +29,21 @@ class Model:
     self.epochs = 100
 
   def load(self):
+    """ Load the model from the last checkpoint
+    """
     latest = tf.train.latest_checkpoint(self.checkpoint_dir)
     self.model.load_weights(latest)
 
   def build_model(self,class_num, input_shape):
+    """ Build Sequential model with tensorflow keras
+
+    Args:
+        class_num (int): Number of classes to classify
+        input_shape (tuple): Input shape of the model, the shape of the image
+
+    Returns:
+        Model: Return the build and compiles tensorflow model
+    """
     model = models.Sequential()
 
     model.add(
@@ -79,6 +97,11 @@ class Model:
     return model
 
   def train(self):
+    """ Train the model and evaluate using the dataset 
+
+    Returns:
+        Dict: Return history dictionary from the fit method contains accuracy and loss 
+    """
     cp_callback = tf.keras.callbacks.ModelCheckpoint(
       filepath=self.checkpoint_path, 
       verbose=1, 
@@ -97,6 +120,11 @@ class Model:
     )
 
   def test(self):
+    """ Evaluate the model using the testing dataset
+
+    Returns:
+        Tuple: The loss and accuracy of the evaluation
+    """
     return self.model.evaluate(
       x = self.test_images,
       y = self.test_labels,
@@ -105,6 +133,14 @@ class Model:
     )
 
   def predict(self, image):
+    """ Predict the image 
+
+    Args:
+        image (list): Flatten list of the image 
+
+    Returns:
+        Str: Returns the prediction
+    """
     image = np.array([np.array(image).astype(np.float).reshape((28, 28, 1))])
     prediction = self.model.predict(image)
     
@@ -112,6 +148,14 @@ class Model:
 
   @staticmethod
   def encode_dataset(dataset):
+    """ Split the tuple dataset into labels decoded as list and images reshape as the input model
+
+    Args:
+        dataset (list): the dataset list, each cell is tuple of label in string and numpy array image 
+
+    Returns:
+        tuple: Returns the encoded labels and images match by index
+    """
     labels, images = list(map(list, zip(*dataset)))
     
     encoded_labels = np.array(list(map(lambda label: classes[label], labels)))
@@ -120,6 +164,11 @@ class Model:
     return encoded_labels, images
 
   def progress_graph(self, history):
+    """ Display the training history in a graph of progress
+
+    Args:
+        history (Dict): The history returns from the train method
+    """
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
 
@@ -142,10 +191,17 @@ class Model:
     plt.show()
 
   def print(self):
+    """ Print to the screen the model summary
+    """
     self.model.summary()
 
   @staticmethod
   def display_image(image):
+    """ Display a certain image
+
+    Args:
+        image (numpy.array): Numpy array of the presented image
+    """
     plt.figure(figsize=(10, 10))
     plt.imshow(image.astype("uint8"))
     plt.axis("off")

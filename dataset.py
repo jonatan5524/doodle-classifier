@@ -15,6 +15,19 @@ classes = {
 }
 
 def load_data(data_items = 1000, training_data_split = 0.8):
+    """ Load the data from the dataset/*.npy files
+
+    Args:
+        data_items (int, optional): Number of data items to take from each dataset. Defaults to 1000.
+        training_data_split (float, optional): Training and test devision from the dataset. Defaults to 0.8.
+
+    Raises:
+        ValueError: If the training_data_split isn't between 0 and 1
+        ValueError: If the data items is bigger then the items in the dataset
+
+    Returns:
+        Dataset, Dataset: Return training dataset, test_dataset, each dataset is a list, each item is tuple (label, numpy.array)
+    """
     if training_data_split >= 1 and training_data_split <= 0:
         raise ValueError("The training_data_split must be between 0 and 1")
 
